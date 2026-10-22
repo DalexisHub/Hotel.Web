@@ -1,5 +1,7 @@
 # Hotel.Web · EF Core Database First
 
+![Hotel junto al mar al atardecer, portada de Hotel.Web](docs/images/portada-hotel-web.png)
+
 Aplicación ASP.NET Core MVC para consultar habitaciones y gestionar reservas de hotel. Proyecto de la actividad **Semana 10: EF Core Database First**.
 
 ## Funciones
