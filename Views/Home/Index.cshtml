@@ -1,0 +1,28 @@
+@{ ViewData["Title"] = "Inicio"; }
+
+<section class="home-hero" aria-labelledby="hero-title">
+    <div class="hero-copy">
+        <span class="eyebrow eyebrow-light">BIENVENIDO A HOTEL.WEB</span>
+        <h1 id="hero-title">Cada viaje merece <em>una buena estancia.</em></h1>
+        <p>Explora las habitaciones, encuentra fechas libres y organiza tu próxima reserva en un solo lugar.</p>
+        <div class="hero-actions">
+            <a class="btn btn-coral" asp-controller="Reservas" asp-action="Disponibles">Consultar disponibilidad <span aria-hidden="true">↗</span></a>
+            <a class="hero-text-link" asp-controller="Habitaciones" asp-action="Index">Ver habitaciones <span aria-hidden="true">→</span></a>
+        </div>
+    </div>
+    <div class="hero-art" aria-hidden="true">
+        <span class="art-sun"></span><span class="art-hill art-hill-back"></span><span class="art-hill art-hill-front"></span>
+        <span class="art-hotel"><i></i><i></i><i></i><i></i><i></i><i></i><b></b></span>
+        <span class="art-ground"></span>
+        <span class="art-caption">ESCAPADAS QUE INSPIRAN</span>
+    </div>
+</section>
+
+<section class="home-section" aria-labelledby="quick-title">
+    <div class="section-heading"><div><span class="eyebrow">TU ESTANCIA, A TU RITMO</span><h2 id="quick-title">¿Por dónde empezamos?</h2></div><p>Todo lo que necesitas para gestionar habitaciones y reservas.</p></div>
+    <div class="quick-grid">
+        <a class="quick-card" asp-controller="Habitaciones" asp-action="Index"><span class="quick-icon quick-blue" aria-hidden="true">▦</span><span class="quick-title">Habitaciones</span><span class="quick-description">Explora espacios, tipos y precios por noche.</span><span class="quick-arrow" aria-hidden="true">↗</span></a>
+        <a class="quick-card" asp-controller="Reservas" asp-action="Disponibles"><span class="quick-icon quick-teal" aria-hidden="true">◷</span><span class="quick-title">Disponibilidad</span><span class="quick-description">Elige tus fechas y descubre habitaciones libres.</span><span class="quick-arrow" aria-hidden="true">↗</span></a>
+        <a class="quick-card" asp-controller="Reservas" asp-action="Index"><span class="quick-icon quick-coral" aria-hidden="true">✦</span><span class="quick-title">Reservas</span><span class="quick-description">Consulta estancias y gestiona cancelaciones.</span><span class="quick-arrow" aria-hidden="true">↗</span></a>
+    </div>
+</section>

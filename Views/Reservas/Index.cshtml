@@ -1,0 +1,20 @@
+@model IEnumerable<Hotel.Web.Models.Reserva>
+@{ ViewData["Title"] = "Reservas"; }
+<section class="page-heading heading-with-action"><div><span class="eyebrow">ESTANCIAS PROGRAMADAS</span><h1>Reservas</h1><p>Consulta fechas, huéspedes y estados de cada estancia.</p></div><a asp-action="Create" class="btn btn-primary">+ Nueva reserva</a></section>
+<div class="list-heading"><h2>Todas las reservas <span class="count-badge">@Model.Count()</span></h2><a asp-action="Disponibles" class="text-link">Consultar disponibilidad <span aria-hidden="true">→</span></a></div>
+@if (!Model.Any())
+{
+    <div class="empty-state"><span aria-hidden="true">✦</span><h3>Aún no hay reservas</h3><p>Crea la primera reserva para verla aquí.</p><a asp-action="Create" class="btn btn-primary">Crear reserva</a></div>
+}
+else
+{
+    <div class="reservation-list">
+    @foreach (var r in Model)
+    {
+        var noches = r.FechaSalida.DayNumber - r.FechaIngreso.DayNumber;
+        var total = noches * r.IdHabitacionNavigation.IdTipoHabitacionNavigation.PrecioNoche;
+        var estadoClase = r.Estado switch { "Confirmada" => "status-confirmed", "Pendiente" => "status-pending", "Cancelada" => "status-cancelled", _ => "status-finished" };
+        <article class="reservation-card"><div class="reservation-icon" aria-hidden="true">⌂</div><div class="reservation-primary"><div class="reservation-topline"><span class="reservation-id">RESERVA #@r.IdReserva</span><span class="status-badge @estadoClase">@r.Estado</span></div><h3>@r.IdHuespedNavigation.Nombres @r.IdHuespedNavigation.Apellidos</h3><p>Habitación @r.IdHabitacionNavigation.Numero · @r.IdHabitacionNavigation.IdTipoHabitacionNavigation.Nombre</p><div class="reservation-meta"><span><small>INGRESO</small>@r.FechaIngreso.ToString("dd/MM/yyyy")</span><span class="date-arrow" aria-hidden="true">→</span><span><small>SALIDA</small>@r.FechaSalida.ToString("dd/MM/yyyy")</span><span><small>ESTANCIA</small>@noches noche(s)</span></div></div><div class="reservation-end"><small>TOTAL ESTIMADO</small><strong>@total.ToString("C")</strong>@if (r.Estado is "Pendiente" or "Confirmada") { <form asp-action="Cancelar" asp-route-id="@r.IdReserva" method="post"><button class="btn btn-outline-danger btn-sm" type="submit">Cancelar reserva</button></form> }</div></article>
+    }
+    </div>
+}

@@ -1,0 +1,8 @@
+@model Hotel.Web.Models.Habitacion
+<div asp-validation-summary="ModelOnly" class="validation-panel"></div>
+<div class="form-grid">
+    <div class="field"><label asp-for="Numero" class="form-label">Número de habitación</label><input asp-for="Numero" class="form-control" maxlength="10" placeholder="Ej. 205"/><span asp-validation-for="Numero" class="field-error"></span><small class="field-hint">Debe ser único en el hotel.</small></div>
+    <div class="field"><label asp-for="Piso" class="form-label">Piso</label><input asp-for="Piso" class="form-control" min="1" placeholder="Ej. 2"/><span asp-validation-for="Piso" class="field-error"></span></div>
+    <div class="field field-full"><label asp-for="IdTipoHabitacion" class="form-label">Tipo de habitación</label><select asp-for="IdTipoHabitacion" asp-items="ViewBag.Tipos" class="form-select"><option value="">Selecciona un tipo</option></select><span asp-validation-for="IdTipoHabitacion" class="field-error"></span></div>
+</div>
+<div class="form-actions"><button type="submit" class="btn btn-primary">Guardar habitación</button><a asp-action="Index" class="btn btn-quiet">Volver</a></div>

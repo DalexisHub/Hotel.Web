@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#102d46" />
+    <title>@ViewData["Title"] · Hotel.Web</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/Hotel.Web.styles.css" asp-append-version="true" />
+</head>
+<body>
+    <a class="skip-link" href="#contenido">Ir al contenido</a>
+    <header class="site-header">
+        <nav class="navbar navbar-expand-lg site-nav" aria-label="Navegación principal">
+            <div class="container site-nav-inner">
+                <a class="brand" asp-controller="Home" asp-action="Index" aria-label="Hotel.Web, inicio">
+                    <span class="brand-mark" aria-hidden="true"><span></span><span></span><span></span></span>
+                    <span class="brand-name">hotel<span class="brand-dot">.</span>web<small>ESTANCIAS &amp; RESERVAS</small></span>
+                </a>
+                <button class="navbar-toggler nav-toggle" type="button" data-bs-toggle="collapse" data-bs-target="#siteMenu" aria-controls="siteMenu" aria-expanded="false" aria-label="Abrir menú">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="siteMenu">
+                    <ul class="navbar-nav ms-auto align-items-lg-center nav-links">
+                        <li class="nav-item"><a class="nav-link @(ViewContext.RouteData.Values["controller"]?.ToString() == "Home" ? "active" : "")" asp-controller="Home" asp-action="Index">Inicio</a></li>
+                        <li class="nav-item"><a class="nav-link @(ViewContext.RouteData.Values["controller"]?.ToString() == "Habitaciones" ? "active" : "")" asp-controller="Habitaciones" asp-action="Index">Habitaciones</a></li>
+                        <li class="nav-item"><a class="nav-link @(ViewContext.RouteData.Values["action"]?.ToString() == "Disponibles" ? "active" : "")" asp-controller="Reservas" asp-action="Disponibles">Disponibilidad</a></li>
+                        <li class="nav-item"><a class="nav-link @(ViewContext.RouteData.Values["controller"]?.ToString() == "Reservas" && ViewContext.RouteData.Values["action"]?.ToString() != "Disponibles" ? "active" : "")" asp-controller="Reservas" asp-action="Index">Reservas</a></li>
+                        <li class="nav-item nav-cta"><a class="btn btn-primary btn-sm" asp-controller="Reservas" asp-action="Create">Nueva reserva <span aria-hidden="true">↗</span></a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="page-shell container">
+        @if (TempData["Mensaje"] is string mensaje)
+        {
+            <div class="notice-success" role="status">
+                <span class="notice-icon" aria-hidden="true">✓</span><span>@mensaje</span>
+            </div>
+        }
+        <main id="contenido" role="main">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="site-footer">
+        <div class="container footer-inner">
+            <div><strong>hotel<span class="brand-dot">.</span>web</strong><span>Una estancia para recordar.</span></div>
+            <a asp-controller="Home" asp-action="Privacy">Privacidad</a>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

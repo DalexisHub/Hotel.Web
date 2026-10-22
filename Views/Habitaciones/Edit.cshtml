@@ -1,0 +1,5 @@
+@model Hotel.Web.Models.Habitacion
+@{ ViewData["Title"] = "Editar habitación"; }
+<section class="page-heading"><a asp-action="Index" class="back-link">← Habitaciones</a><span class="eyebrow">GESTIÓN DE ESPACIOS</span><h1>Editar habitación @Model.Numero</h1><p>Actualiza la información visible de este espacio.</p></section>
+<div class="form-layout"><div class="content-card form-card"><div class="card-heading"><span class="section-icon" aria-hidden="true">✎</span><div><h2>Datos de la habitación</h2><p>Revisa el número, el piso y el tipo.</p></div></div><form asp-action="Edit" asp-route-id="@Model.IdHabitacion" method="post"><input type="hidden" asp-for="IdHabitacion" /><partial name="_Formulario" model="Model" /></form></div><aside class="side-note"><span class="note-spark" aria-hidden="true">✦</span><h3>Todo en orden</h3><p>Los cambios se mostrarán en el catálogo de habitaciones activas.</p></aside></div>
+@section Scripts { <partial name="_ValidationScriptsPartial" /> }

@@ -1,0 +1,32 @@
+@model Hotel.Web.ViewModels.DisponibilidadViewModel
+@{ ViewData["Title"] = "Disponibilidad"; }
+<section class="availability-hero"><div><span class="eyebrow eyebrow-light">PLANEEMOS TU ESTANCIA</span><h1>Encuentra tu próximo lugar favorito.</h1><p>Elige tus fechas y mira qué habitaciones están listas para recibirte.</p></div><span class="availability-symbol" aria-hidden="true">✳</span></section>
+
+<form asp-action="Disponibles" method="get" class="search-card" aria-label="Buscar disponibilidad">
+    <div class="search-heading"><span class="section-icon" aria-hidden="true">◷</span><div><h2>¿Cuándo nos visitas?</h2><p>Selecciona el día de ingreso y el de salida.</p></div></div>
+    <div class="search-fields"><div class="field"><label asp-for="Ingreso" class="form-label">Fecha de ingreso</label><input asp-for="Ingreso" type="date" class="form-control" /></div><div class="field"><label asp-for="Salida" class="form-label">Fecha de salida</label><input asp-for="Salida" type="date" class="form-control" /></div><button class="btn btn-primary" type="submit">Buscar habitaciones <span aria-hidden="true">→</span></button></div>
+    <div asp-validation-summary="All" class="validation-panel"></div>
+</form>
+
+@if (Model.Noches > 0)
+{
+    <section class="results-section" aria-labelledby="results-title"><div class="section-heading"><div><span class="eyebrow">TUS OPCIONES</span><h2 id="results-title">Habitaciones disponibles <span class="count-badge">@Model.Habitaciones.Count</span></h2></div><p>Estancia de <strong>@Model.Noches noche(s)</strong> · Total estimado según tarifa por noche.</p></div>
+    @if (Model.Habitaciones.Count == 0)
+    {
+        <div class="empty-state"><span aria-hidden="true">◷</span><h3>No encontramos habitaciones libres</h3><p>Prueba con otras fechas para ver más opciones.</p></div>
+    }
+    else
+    {
+        <div class="available-grid">
+        @foreach (var h in Model.Habitaciones)
+        {
+            <article class="available-card"><div class="available-card-accent"><span class="available-room-icon" aria-hidden="true">⌂</span><span class="available-tag">Disponible</span></div><div class="available-main"><span class="eyebrow">HABITACIÓN @h.Numero · PISO @h.Piso</span><h3>@h.IdTipoHabitacionNavigation.Nombre</h3><p>Capacidad para @h.IdTipoHabitacionNavigation.Capacidad persona(s)</p><span class="nightly-rate">@h.IdTipoHabitacionNavigation.PrecioNoche.ToString("C") por noche</span></div><div class="available-total"><span>Total estimado</span><strong>@((h.IdTipoHabitacionNavigation.PrecioNoche * Model.Noches).ToString("C"))</strong><small>por @Model.Noches noche(s)</small><a asp-action="Create" asp-route-habitacionId="@h.IdHabitacion" asp-route-ingreso="@(Model.Ingreso?.ToString("yyyy-MM-dd"))" asp-route-salida="@(Model.Salida?.ToString("yyyy-MM-dd"))" class="btn btn-primary">Crear reserva <span aria-hidden="true">→</span></a></div></article>
+        }
+        </div>
+    }
+    </section>
+}
+else if (Model.Ingreso is null && Model.Salida is null)
+{
+    <div class="availability-hint"><span aria-hidden="true">✦</span><p>Tu próxima escapada empieza con una fecha. Completa la búsqueda para ver habitaciones libres y precios estimados.</p></div>
+}

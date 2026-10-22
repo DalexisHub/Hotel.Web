@@ -1,0 +1,4 @@
+@model ErrorViewModel
+@{ ViewData["Title"] = "Ocurrió un error"; }
+<section class="page-heading"><span class="eyebrow">ALGO SALIÓ MAL</span><h1>No pudimos abrir esta página.</h1><p>Intenta de nuevo en un momento o vuelve al inicio para continuar.</p></section>
+<div class="content-card narrow-card"><span class="warning-icon" aria-hidden="true">!</span><h2>Estamos aquí para ayudarte a seguir</h2><p>Si el problema continúa, revisa la conexión con la base de datos de la aplicación.</p>@if (Model.ShowRequestId) { <p class="request-id">Referencia: <code>@Model.RequestId</code></p> }<a asp-controller="Home" asp-action="Index" class="btn btn-primary">Volver al inicio</a></div>

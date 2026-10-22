@@ -1,0 +1,21 @@
+# Compilación de .NET
+bin/
+obj/
+TestResults/
+
+# Archivos del sistema y del editor
+.DS_Store
+Thumbs.db
+.vs/
+.vscode/
+*.user
+*.suo
+
+# Configuración y secretos locales
+.env
+.env.*
+appsettings.Local.json
+appsettings.*.local.json
+*.pfx
+*.pem
+*.key

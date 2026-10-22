@@ -1,0 +1,5 @@
+@model Hotel.Web.Models.Habitacion
+@{ ViewData["Title"] = "Nueva habitación"; }
+<section class="page-heading"><a asp-action="Index" class="back-link">← Habitaciones</a><span class="eyebrow">GESTIÓN DE ESPACIOS</span><h1>Nueva habitación</h1><p>Agrega un espacio y asígnale un tipo para mostrarlo en el catálogo.</p></section>
+<div class="form-layout"><div class="content-card form-card"><div class="card-heading"><span class="section-icon" aria-hidden="true">⌂</span><div><h2>Datos de la habitación</h2><p>Completa los detalles básicos del espacio.</p></div></div><form asp-action="Create" method="post"><partial name="_Formulario" model="Model" /></form></div><aside class="side-note"><span class="note-spark" aria-hidden="true">✦</span><h3>Un espacio listo para recibir</h3><p>Las habitaciones nuevas aparecen activas y disponibles para consultas de reserva.</p></aside></div>
+@section Scripts { <partial name="_ValidationScriptsPartial" /> }

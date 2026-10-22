@@ -1,0 +1,30 @@
+@model IEnumerable<Hotel.Web.Models.Habitacion>
+@{ ViewData["Title"] = "Habitaciones"; }
+<section class="page-heading heading-with-action">
+    <div><span class="eyebrow">ESPACIOS PARA DESCANSAR</span><h1>Habitaciones</h1><p>Encuentra el espacio ideal para cada estancia.</p></div>
+    <a asp-action="Create" class="btn btn-primary">+ Nueva habitación</a>
+</section>
+
+<form asp-action="Index" method="get" class="filter-panel" aria-label="Filtrar habitaciones">
+    <div class="filter-copy"><span class="filter-icon" aria-hidden="true">⌕</span><div><strong>Explora las habitaciones</strong><small>Filtra por tipo para encontrar lo que buscas.</small></div></div>
+    <div class="filter-controls"><div class="field"><label for="tipoId" class="form-label">Tipo de habitación</label><select id="tipoId" name="tipoId" class="form-select" asp-items="ViewBag.Tipos"><option value="">Todos los tipos</option></select></div><button class="btn btn-primary" type="submit">Aplicar filtro</button></div>
+</form>
+
+<div class="list-heading"><h2>Habitaciones activas <span class="count-badge">@Model.Count()</span></h2><span>Ordenadas por número</span></div>
+@if (!Model.Any())
+{
+    <div class="empty-state"><span aria-hidden="true">⌂</span><h3>No hay habitaciones para este filtro</h3><p>Prueba con otro tipo o revisa las habitaciones activas.</p><a asp-action="Index" class="btn btn-outline-primary">Ver todas</a></div>
+}
+else
+{
+    <div class="room-grid">
+    @foreach (var h in Model)
+    {
+        <article class="room-card">
+            <div class="room-visual"><span class="room-visual-orbit"></span><span class="room-door" aria-hidden="true"><i></i></span><span class="room-number">N.º @h.Numero</span></div>
+            <div class="room-card-body"><div class="room-card-top"><span class="type-pill">@h.IdTipoHabitacionNavigation.Nombre</span><span class="floor-label">Piso @h.Piso</span></div><h3>Habitación @h.Numero</h3><p>Capacidad para @h.IdTipoHabitacionNavigation.Capacidad persona(s)</p><div class="room-price"><strong>@h.IdTipoHabitacionNavigation.PrecioNoche.ToString("C")</strong><span>/ noche</span></div></div>
+            <div class="room-card-actions"><a asp-action="Details" asp-route-id="@h.IdHabitacion" class="text-link">Ver detalle <span aria-hidden="true">→</span></a><div><a asp-action="Edit" asp-route-id="@h.IdHabitacion">Editar</a><a asp-action="Delete" asp-route-id="@h.IdHabitacion" class="danger-link">Desactivar</a></div></div>
+        </article>
+    }
+    </div>
+}
